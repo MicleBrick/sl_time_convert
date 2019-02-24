@@ -40,14 +40,14 @@ fn main() {
     let time: Date<Utc> = Utc.ymd(year, month as u32, day as u32);
 
     let duration: Duration = time.signed_duration_since(epoch);
-    let days: i64 = duration.num_seconds() / 60 / 60 / 24;
+    let days: i64 = duration.num_days();
 
     // sl time is 100x faster than real time
     let new_days: i64 = if !reverse_convert { days * 100 } else { days / 100 };
-    let new_duration = Duration::seconds(new_days * 24 * 60 * 60);
+    let new_duration = Duration::days(new_days);
 
     // 2013 real = 2300 SL, 287 year diff
-    let offset = Duration::days(287 * 365 * (if !reverse_convert { 1 } else { -1 }));
+    let offset = Duration::days(if !reverse_convert { 287 * 365 } else { 0 });
 
     let converted = epoch + new_duration + offset;
 
