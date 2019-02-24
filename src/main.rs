@@ -67,7 +67,7 @@ fn main() {
 
 fn print_usage_and_exit() -> ! {
     println!("Usage: sl_time_convert <month>/<day>/<year> [reverse_convert=false]");
-    exit_with_user_error_code();
+    std::process::exit(0);
 }
 
 fn validate_year(input: &str) -> i32 { validate_number(input, -2_147_483_648, 2_147_483_647, "Year") }
