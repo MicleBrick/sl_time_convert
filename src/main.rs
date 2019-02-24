@@ -32,8 +32,6 @@ fn main() {
         print_usage_and_exit();
     }
 
-    println!("Month: {}", split[0]);
-
     let year: i32 = validate_year(split[2]);
     let month: i32 = validate_month(split[0]);
     let day: i32 = validate_day(month, year, split[1]);
