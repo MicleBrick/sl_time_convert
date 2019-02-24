@@ -1,6 +1,6 @@
 [package]
 name = "sl_time_convert"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["miclebrick <miclebrick@outlook.com>"]
 edition = "2018"
 description = "A command line utility to convert real time to and from SL time"
