@@ -17,8 +17,8 @@ main() {
 
     test -f Cargo.lock || cargo generate-lockfile
 
-    # TODO Update this to build the artifacts that matter to you
-    cross rustc --bin sl_convert_time --target $TARGET --release -- -C lto
+    cd $src
+    cross rustc --bin sl_time_convert --target $TARGET --release -- -C lto
 
     cp target/$TARGET/release/sl_convert_time $stage/
 

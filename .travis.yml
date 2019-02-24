@@ -22,7 +22,6 @@ script:
 after_script: set +e
 before_deploy:
 - sh ci/before_deploy.sh
-cache: cargo
 before_cache:
 - chmod -R a+r $HOME/.cargo
 branches:
