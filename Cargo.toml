@@ -3,6 +3,8 @@ name = "sl_time_convert"
 version = "0.1.0"
 authors = ["miclebrick <miclebrick@outlook.com>"]
 edition = "2018"
+description = "A command line utility to convert real time to and from SL time"
+license = "MIT"
 
 [dependencies]
 time = "0.1.42"
