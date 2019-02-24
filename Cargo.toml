@@ -1,0 +1,9 @@
+[package]
+name = "sl_time_convert"
+version = "0.1.0"
+authors = ["miclebrick <miclebrick@outlook.com>"]
+edition = "2018"
+
+[dependencies]
+time = "0.1.42"
+chrono = "0.4.6"
