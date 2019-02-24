@@ -22,7 +22,7 @@ main() {
     cp target/$TARGET/release/sl_time_convert $stage/ || cp target/$TARGET/release/sl_time_convert.exe $stage/ 
 
     cd $stage
-    tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
+    zip $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.zip *
     cd $src
 
     rm -rf $stage
