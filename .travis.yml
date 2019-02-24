@@ -7,7 +7,10 @@ env:
   - CRATE_NAME=sl_time_convert
 matrix:
   include:
-  - env: TARGET=i686-unknown-linux-gnu
+  - env: TARGET=x86_64-unknown-linux-gnu
+  - env: TARGET=x86_64-apple-darwin
+    os: osx
+  - env: TARGET=i686-pc-windows-gnu
 before_install:
 - set -e
 - rustup self update
