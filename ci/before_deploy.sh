@@ -17,13 +17,17 @@ main() {
 
     test -f Cargo.lock || cargo generate-lockfile
 
-    cross rustc --bin sl_time_convert --target x86_64-pc-windows-gnu --target TARGET=x86_64-apple-darwin --target TARGET=x86_64-unknown-linux-gnu --release -- -C lto
+    cross rustc --bin hello --target x86_64-pc-windows-gnu --release -- -C lto
+    cross rustc --bin hello --target x86_64-apple-darwin --release -- -C lto
+    cross rustc --bin hello --target x86_64-unknown-linux-gnu --release -- -C lto
 
     # TODO Update this to package the right artifacts
-    cp target/$TARGET/release/hello $stage/
+    cp target/x86_64-pc-windows-gnu/release/sl_time_convert $stage/windows
+    cp target/x86_64-apple-darwin/release/sl_time_convert $stage/mac
+    cp target/x86_64-unknown-linux-gnu/release/sl_time_convert $stage/linux
 
     cd $stage
-    tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
+    tar czf $src/$CRATE_NAME-$TRAVIS_TAG-LINUX.tar.gz *
     cd $src
 
     rm -rf $stage
