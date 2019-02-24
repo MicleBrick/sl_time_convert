@@ -44,9 +44,14 @@ fn main() {
     let duration: Duration = time.signed_duration_since(epoch);
     let days: i64 = duration.num_seconds() / 60 / 60 / 24;
 
-    let new_days: i64 = if !reverse_convert { days * 3.65 } else { days / 3.65 };
+    // sl time is 100x faster than real time
+    let new_days: i64 = if !reverse_convert { days * 100 } else { days / 100 };
     let new_duration = Duration::seconds(new_days * 24 * 60 * 60);
-    let converted = epoch + new_duration;
+
+    // 2013 real = 2300 SL, 287 year diff
+    let offset = Duration::days(287 * 365 * (if !reverse_convert { 1 } else { -1 }));
+
+    let converted = epoch + new_duration + offset;
 
     const FORMAT: &str = "%m/%d/%Y";
 
