@@ -17,8 +17,7 @@ main() {
 
     test -f Cargo.lock || cargo generate-lockfile
 
-    # TODO Update this to build the artifacts that matter to you
-    cross rustc --bin hello --target $TARGET --release -- -C lto
+    cross rustc --bin sl_time_convert --target x86_64-pc-windows-gnu --target TARGET=x86_64-apple-darwin --target TARGET=x86_64-unknown-linux-gnu --release -- -C lto
 
     # TODO Update this to package the right artifacts
     cp target/$TARGET/release/hello $stage/
