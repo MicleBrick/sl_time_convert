@@ -50,7 +50,6 @@ fn main() {
     // sl time is 100x faster than real time
     let mut new_days: i64 = if !reverse_convert { days * 100 } else { days / 100 };
 
-
     // add the addition of 287 years to make 2013 real = 2300 SL after multiplying if not reversing
     if !reverse_convert {
         new_days += 287 * 365;
@@ -66,7 +65,8 @@ fn main() {
     let converted_formatted = converted.format(FORMAT).to_string();
 
     if !reverse_convert {
-        println!("{} in real time is {} in SL time", time_formatted, converted_formatted);
+        let max = (converted + Duration::days(99)).format(FORMAT).to_string();
+        println!("{} in real time is between {} and {} in SL time", time_formatted, converted_formatted, max);
     } else {
         println!("{} in SL time is {} in real time", time_formatted, converted_formatted);
     }
