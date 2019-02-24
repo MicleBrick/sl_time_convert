@@ -1,0 +1,60 @@
+dist: trusty
+language: rust
+services: docker
+sudo: required
+env:
+  global:
+  - CRATE_NAME=sl_time_convert
+matrix:
+  include:
+  - env: TARGET=aarch64-unknown-linux-gnu
+  - env: TARGET=arm-unknown-linux-gnueabi
+  - env: TARGET=armv7-unknown-linux-gnueabihf
+  - env: TARGET=i686-unknown-linux-gnu
+  - env: TARGET=i686-unknown-linux-musl
+  - env: TARGET=mips-unknown-linux-gnu
+  - env: TARGET=mips64-unknown-linux-gnuabi64
+  - env: TARGET=mips64el-unknown-linux-gnuabi64
+  - env: TARGET=mipsel-unknown-linux-gnu
+  - env: TARGET=powerpc-unknown-linux-gnu
+  - env: TARGET=powerpc64-unknown-linux-gnu
+  - env: TARGET=powerpc64le-unknown-linux-gnu
+  - env: TARGET=s390x-unknown-linux-gnu DISABLE_TESTS=1
+  - env: TARGET=x86_64-unknown-linux-gnu
+  - env: TARGET=x86_64-unknown-linux-musl
+  - env: TARGET=i686-apple-darwin
+    os: osx
+  - env: TARGET=x86_64-apple-darwin
+    os: osx
+  - env: TARGET=x86_64-pc-windows-gnu
+before_install:
+- set -e
+- rustup self update
+install:
+- sh ci/install.sh
+- source ~/.cargo/env || true
+script:
+- bash ci/script.sh
+after_script: set +e
+before_deploy:
+- sh ci/before_deploy.sh
+cache: cargo
+before_cache:
+- chmod -R a+r $HOME/.cargo
+branches:
+  only:
+  - "/^v\\d+\\.\\d+\\.\\d+.*$/"
+  - master
+notifications:
+  email:
+    on_success: never
+deploy:
+  api_key:
+    secure: CmO90hgcznuACHoIuWjzFNexu/OcOtOmHC0xfVXRLJ7XYZWyGMAam2zfoLMYhRURnDN3jxK59KcGFqPi+5gwXNL+Tx7bc5WCL/kxkh2EZwkZ+AEEqdmOZ3i+/ZnfsxaCgE6PMmExd2uqmblbfSqPj7vMsLdDc2BsZSYOIitCaudS9YiwZJHN+Nk7gMKAG3T8MgMq3tDFLUwbs6ArItezpMm0tWZ8j2oCk2qURmx8g14fJ/Myc0kYIR+Ucpi4jKkNufRctFy5irehOaGAX0uv4QkbV9NB2/it3nrUo0Qv18wpfRb8NQ05GsiFODQLCHmBJ2nI7h2tZzoAuwTZW5WcEqUUltX3icr1hbRmFSk36Mnl9wQiKhVvWf+OXu8+L14GwPh/wqZnmpyvmgB9L0hgqMaGOcDAx/zt1ZS1J1yTZ+kTz2IrOxKm/h7DODm6VT7PrBDvbYgNp+O2jBNC3AS5bFlDDj48J+WvpiisH10b0KEovSQ8oxKe5uPztz0l+G8slUtTABUPsY8g0DlGJ6bxOqdQCU49C5KMY1xWXSIqbZqdEe7M0eg6sM7ATXYlDJOwzcwUj6wngtLi6AEm++0DRoNVqrNn9VQtTJnlsqgrObh6EzQIxBdBekjfpeP4Hs8Uzqy4o30C66zdw5uy6yK0S01jGXH0V95yo8DDt9ZoXOs=
+  file_glob: true
+  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
+  on:
+    condition: $TRAVIS_RUST_VERSION = stable
+    tags: true
+  provider: releases
+  skip_cleanup: true
