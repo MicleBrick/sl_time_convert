@@ -17,10 +17,9 @@ main() {
 
     test -f Cargo.lock || cargo generate-lockfile
 
-    cd $src
     cross rustc --bin sl_time_convert --target $TARGET --release -- -C lto
 
-    cp target/$TARGET/release/sl_convert_time $stage/
+    cp target/$TARGET/release/sl_time_convert $stage/ || cp target/$TARGET/release/sl_time_convert.exe $stage/ 
 
     cd $stage
     tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
