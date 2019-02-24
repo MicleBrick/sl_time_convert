@@ -44,7 +44,7 @@ fn main() {
     let duration: Duration = time.signed_duration_since(epoch);
     let days: i64 = duration.num_seconds() / 60 / 60 / 24;
 
-    let new_days: i64 = if !reverse_convert { days * 100 } else { days / 100 };
+    let new_days: i64 = if !reverse_convert { days * 3.65 } else { days / 3.65 };
     let new_duration = Duration::seconds(new_days * 24 * 60 * 60);
     let converted = epoch + new_duration;
 
